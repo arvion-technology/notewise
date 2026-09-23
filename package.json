@@ -1,0 +1,24 @@
+{
+  "name": "notewise",
+  "version": "1.0.0",
+  "description": "A block-based document editor: slash commands, drag handles, nested blocks, undo/redo and clean Markdown import/export. Contenteditable done carefully.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "author": "Arvion Technologies <hello@arviontech.net> (https://arviontech.net)",
+  "homepage": "https://arvion-technology.github.io/labs/demos/notewise/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arvion-technology/notewise.git"
+  },
+  "scripts": {
+    "test": "node --test",
+    "demo": "node scripts/serve.mjs . 4173",
+    "shot": "node scripts/shot.mjs 1440 900 docs/screenshot.png",
+    "shot:2": "node scripts/shot.mjs 1440 900 docs/screenshot-2.png #markdown",
+    "verify": "node --test test/ && node scripts/serve-check.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
