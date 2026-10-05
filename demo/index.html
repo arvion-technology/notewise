@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en" class="theme-paper">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>Notewise — a block editor with Markdown in and out</title>
+  <meta
+    name="description"
+    content="A block-based document editor with slash commands, nested blocks, drag handles, undo with typing coalescence and Markdown import/export. Dependency-free, runs in the browser."
+  />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23b23a2b'/><text x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='700' fill='%23fdf9f2' text-anchor='middle'>N</text></svg>" />
+  <link rel="stylesheet" href="arvion.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="aurora"></div>
+
+  <div class="app shell">
+    <aside class="sidebar" aria-label="Notebook pages">
+      <a class="brand app-brand" href="./index.html">
+        <span class="brand-mark" aria-hidden="true">N</span>
+        <span>
+          <span class="brand-word">Notewise</span>
+          <span class="brand-sub" style="display: block">Arvion Labs</span>
+        </span>
+      </a>
+
+      <button class="btn sm new-page" id="new-page" type="button">
+        <span class="new-page-plus" aria-hidden="true">+</span> New page
+      </button>
+
+      <div class="search page-search">
+        <input
+          class="input"
+          id="page-search"
+          type="search"
+          placeholder="Search pages"
+          aria-label="Search pages and content"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div class="nav-label">Pages</div>
+      <nav class="page-list" id="page-list" aria-label="Pages"></nav>
+
+      <div class="sidebar-foot">
+        <div class="storage-note" id="storage-note">
+          <span class="dot" aria-hidden="true"></span>
+          <span id="storage-label">Saved in this browser</span>
+        </div>
+        <div class="sidebar-keys">
+          <kbd>/</kbd> commands <span class="meta-dot">·</span> <kbd>Tab</kbd> nest <span class="meta-dot">·</span> <kbd>⌘Z</kbd> undo
+        </div>
+        <a class="sidebar-link" href="https://github.com/arvion-technology/notewise#readme" target="_blank" rel="noopener">
+          Source and README <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar doc-topbar">
+        <div class="crumbs">
+          <span class="crumb-root">Notebook</span>
+          <span class="crumb-sep" aria-hidden="true">/</span>
+          <span id="crumb-page">Welcome to Notewise</span>
+        </div>
+        <span class="spacer"></span>
+
+        <div class="doc-actions">
+          <button class="btn ghost icon" id="undo" type="button" title="Undo (Ctrl+Z)" aria-label="Undo">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-2"/></svg>
+          </button>
+          <button class="btn ghost icon" id="redo" type="button" title="Redo (Ctrl+Shift+Z)" aria-label="Redo">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h2"/></svg>
+          </button>
+          <span class="badge save-badge" id="save-state" data-state="saved">
+            <span class="dot" aria-hidden="true"></span><span id="save-label">Saved</span>
+          </span>
+          <span class="badge words-badge" id="word-badge">0 words</span>
+          <button class="btn sm markdown-btn" id="open-markdown" type="button">Markdown</button>
+          <button class="btn sm" id="open-import" type="button">Import</button>
+          <button class="btn primary sm" id="export-md" type="button">Export .md</button>
+        </div>
+      </header>
+
+      <div class="workspace-body">
+        <main class="editor-stage">
+          <article class="sheet" id="sheet">
+            <input
+              class="page-title"
+              id="page-title"
+              value="Welcome to Notewise"
+              aria-label="Page title"
+              placeholder="Untitled"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <div class="page-meta">
+              <span id="page-meta">Edited just now</span>
+              <span class="meta-dot" aria-hidden="true">·</span>
+              <span id="page-block-count">0 blocks</span>
+              <span class="meta-dot" aria-hidden="true">·</span>
+              <span class="page-kind">block editor</span>
+            </div>
+
+            <div
+              class="editor"
+              id="editor"
+              role="group"
+              aria-label="Page content"
+            ></div>
+
+            <footer class="sheet-foot">
+              <span id="stats">0 words</span>
+              <span class="spacer"></span>
+              <span class="shortcut-line">
+                <kbd>/</kbd> commands
+                <span class="meta-dot" aria-hidden="true">·</span>
+                <kbd>Tab</kbd> nest
+                <span class="meta-dot" aria-hidden="true">·</span>
+                <kbd>Ctrl</kbd>+<kbd>Z</kbd> undo
+              </span>
+            </footer>
+          </article>
+        </main>
+
+        <aside class="md-panel" id="markdown-panel" aria-label="Markdown import and export" hidden>
+          <div class="panel-head">
+            <div>
+              <div class="eyebrow">Interop</div>
+              <h2>Markdown</h2>
+            </div>
+            <button class="btn ghost sm" id="close-panel" type="button" aria-label="Close Markdown panel">Close</button>
+          </div>
+
+          <div class="tabs md-tabs" id="md-tabs">
+            <button class="tab active" data-md-tab="export" type="button">Export</button>
+            <button class="tab" data-md-tab="import" type="button">Import</button>
+          </div>
+
+          <section class="md-body" data-md-panel="export">
+            <p class="panel-note">
+              Serialized with <code>src/markdown.js</code> — the same module the round-trip tests import.
+            </p>
+            <textarea
+              class="md-source"
+              id="md-output"
+              readonly
+              spellcheck="false"
+              aria-label="Markdown source"
+            ></textarea>
+            <div class="md-meta" id="md-meta">0 blocks</div>
+            <div class="row wrap panel-actions">
+              <button class="btn sm" id="copy-md" type="button">Copy</button>
+              <button class="btn primary sm" id="download-md" type="button">Download .md</button>
+            </div>
+          </section>
+
+          <section class="md-body" data-md-panel="import" hidden>
+            <p class="panel-note">
+              Paste Markdown or choose a file. Import replaces the current page; the undo stack starts fresh.
+            </p>
+            <textarea
+              class="md-source"
+              id="md-input"
+              spellcheck="false"
+              placeholder="# Heading&#10;&#10;A paragraph, then a list:&#10;&#10;- one&#10;  - nested&#10;&#10;> A quote"
+              aria-label="Markdown to import"
+            ></textarea>
+            <input type="file" id="md-file" accept=".md,.markdown,.txt,text/markdown,text/plain" hidden />
+            <div class="row wrap panel-actions">
+              <button class="btn sm" id="pick-md" type="button">Choose file</button>
+              <span class="spacer"></span>
+              <button class="btn primary sm" id="apply-md" type="button">Import into page</button>
+            </div>
+          </section>
+
+          <footer class="panel-foot">
+            <span class="small muted" id="panel-hint">Round-trip check</span>
+            <span class="spacer"></span>
+            <span class="small muted">Two-space nesting</span>
+          </footer>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <div class="slash-menu" id="slash-menu" role="listbox" aria-label="Block commands" hidden></div>
+
+  <div class="demo-banner">
+    <span class="brand-mark" style="width: 20px; height: 20px; font-size: 10px; border-radius: 6px">A</span>
+    <span>Arvion Labs</span>
+    <span class="sep"></span>
+    <a href="https://arvion-technology.github.io/labs/">All projects</a>
+    <span class="sep"></span>
+    <a href="https://github.com/arvion-technology/notewise" target="_blank" rel="noopener">source</a>
+  </div>
+
+  <script src="arvion.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
