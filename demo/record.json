@@ -1,0 +1,77 @@
+[
+  {
+    "wait": 1600
+  },
+  {
+    "click": ".page-item[data-page-id='p-field-notes']"
+  },
+  {
+    "wait": 900
+  },
+  {
+    "eval": "notewise.focusBlockByIndex(1)"
+  },
+  {
+    "wait": 400
+  },
+  {
+    "eval": "notewise.addBlock()"
+  },
+  {
+    "wait": 400
+  },
+  {
+    "eval": "notewise.type('Patan, before the shutters open', 16)"
+  },
+  {
+    "wait": 800
+  },
+  {
+    "eval": "notewise.openSlash()"
+  },
+  {
+    "wait": 1200
+  },
+  {
+    "key": "ArrowDown"
+  },
+  {
+    "wait": 600
+  },
+  {
+    "key": "Enter"
+  },
+  {
+    "wait": 950
+  },
+  {
+    "eval": "notewise.focusBlockByIndex(5)"
+  },
+  {
+    "wait": 450
+  },
+  {
+    "key": "Tab"
+  },
+  {
+    "wait": 1500
+  },
+  {
+    "click": "#undo"
+  },
+  {
+    "wait": 1100
+  },
+  {
+    "click": "#open-markdown"
+  },
+  {
+    "wait": 1900
+  },
+  {
+    "eval": "(() => { const t = document.querySelector('#md-output'); if (t) t.scrollTop = 200; return true; })()"
+  },
+  {
+    "wait": 1400
+  }
+]
