@@ -36,7 +36,7 @@ function welcomePage() {
       ]),
       bullet("Tab nests a block under the one above it. Shift-Tab lifts it back out and takes its followers with it."),
       bullet("Hover the left gutter and drag a block by its handle to reorder it, subtree included."),
-      todo("Press Ctrl+Z after a burst of typing — the whole burst is one undo step", true),
+      todo("Press Ctrl+Z after a burst of typing, the whole burst is one undo step", true),
       h2("Why a tree"),
       p(
         "A flat contenteditable region is easy to start with and painful to maintain: nesting lives in the HTML, list numbers live in the browser, and every operation has to reverse-engineer the DOM. Here the DOM is a projection of page.doc. Insert, split, merge, indent and move are functions in src/blocks.js with tests, and the view is rebuilt after each structural edit."
@@ -61,7 +61,7 @@ function welcomePage() {
 function fieldNotesPage() {
   return createPage({
     id: "p-field-notes",
-    title: "Field notes — Patan, Tuesday",
+    title: "Field notes, Patan, Tuesday",
     updatedAt: Date.now() - 1000 * 60 * 60 * 26,
     blocks: [
       p(

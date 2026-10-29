@@ -7,7 +7,7 @@
  * it, and exporting again is byte-stable even though block ids change.
  *
  * What intentionally is not modelled: inline emphasis. "**bold**" stays text
- * inside a block — see the README.
+ * inside a block, see the README.
  */
 
 import { createBlock, createDoc, isListType } from "./blocks.js";

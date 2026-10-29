@@ -2,8 +2,7 @@
  * Snapshot undo with typing coalescence.
  *
  * The stack stores whole documents because the tree is small (a page is a few
- * kilobytes) and whole-document snapshots make undo correct by construction —
- * there is no inverse operation to get wrong. Coalescing keeps typing cheap:
+ * kilobytes) and whole-document snapshots make undo correct by construction, * there is no inverse operation to get wrong. Coalescing keeps typing cheap:
  * repeated pushes with the same key inside the time window replace the head
  * instead of appending, so one Ctrl+Z removes a sentence rather than a letter.
  *

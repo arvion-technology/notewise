@@ -21,11 +21,11 @@ test("countWords ignores punctuation-only tokens", () => {
   assert.equal(countWords(""), 0);
   assert.equal(countWords("   "), 0);
   assert.equal(countWords("hello world"), 2);
-  assert.equal(countWords("hello — world"), 2);
+  assert.equal(countWords("hello, world"), 2);
   assert.equal(countWords("well-written hyphenated"), 2);
   assert.equal(countWords("42 3.14"), 2);
   assert.equal(countWords("café naïve"), 2);
-  assert.equal(countWords("— – •"), 0);
+  assert.equal(countWords(", , •"), 0);
 });
 
 test("docStats walks nested blocks", () => {

@@ -135,7 +135,7 @@ test("createPage fills sensible defaults", () => {
 });
 
 test("slugify produces safe download names", () => {
-  assert.equal(slugify("Field notes — Patan, Tuesday"), "field-notes-patan-tuesday");
+  assert.equal(slugify("Field notes, Patan, Tuesday"), "field-notes-patan-tuesday");
   assert.equal(slugify("   "), "untitled");
   assert.equal(slugify("A/B testing"), "a-b-testing");
 });

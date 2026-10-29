@@ -2,7 +2,7 @@
 <img src="docs/demo.gif" alt="Notewise block editor in the paper theme" width="100%" />
 </div>
 
-<sub>Recorded from the live demo — <a href="docs/demo.mp4">MP4</a> · <a href="docs/screenshot.png">static frame</a></sub>
+<sub>Recorded from the live demo, <a href="docs/demo.mp4">MP4</a> · <a href="docs/screenshot.png">static frame</a></sub>
 
 # Notewise
 
@@ -88,7 +88,7 @@ the browser layer, and no build artifact to keep in sync.
 ```
 
 The renderer flattens that depth-first into rows with a `depth` and a marker.
-Everything else — list numbers, indentation guides, keyboard navigation — is
+Everything else, list numbers, indentation guides, keyboard navigation, is
 derived from the tree at render time.
 
 ## Quickstart
@@ -112,7 +112,7 @@ npm run shot:2
 
 **Splitting and merging happen on the tree, not the DOM.** Pressing Enter calls
 `splitBlock(doc, id, offset)`. The text after the caret becomes a new sibling of
-the same type, and the original block's children move to the new block — the
+the same type, and the original block's children move to the new block, the
 same rule Notion uses when you split a parent line. Backspace at offset zero
 calls `mergeWithPrevious`, which appends the text to the previous sibling and
 adopts its children, or, when there is no previous sibling, lifts the block out
@@ -207,7 +207,7 @@ Beyond that: the page title lives beside the document rather than inside it, so
 export covers the body, and importing a file that starts with `# Heading`
 creates a heading block. Import treats each non-empty line as one block, so a
 hard-wrapped paragraph from another editor becomes several paragraphs. There is
-no collaboration, no sync and no conflict resolution — one page, one browser.
+no collaboration, no sync and no conflict resolution, one page, one browser.
 
 ## Project layout
 

@@ -7,7 +7,7 @@
  * Every structural edit mutates the tree in place and returns a small result
  * object (the new caret position, the block that was merged into, or null when
  * the edit is not allowed). The demo snapshots the tree after each edit, so
- * cloning on every keystroke is unnecessary — the undo stack owns the copies.
+ * cloning on every keystroke is unnecessary, the undo stack owns the copies.
  */
 
 export const BLOCK_TYPES = Object.freeze([
@@ -98,7 +98,7 @@ export function listBlocks(doc) {
 /**
  * The render list. Depth-first order plus the marker a list item needs.
  * Numbering restarts whenever a non-list block interrupts a numbered run,
- * and separately inside each parent — the same rule the Markdown serializer uses.
+ * and separately inside each parent, the same rule the Markdown serializer uses.
  */
 export function getRows(doc) {
   const rows = [];
@@ -170,7 +170,7 @@ export function insertBlockAt(doc, block, parentId, index) {
 
 /**
  * Split a block at a caret offset. The tail becomes a new sibling of the same
- * type, and the original block's children move with the tail — that is what
+ * type, and the original block's children move with the tail, that is what
  * editors do when you press Enter halfway through a parent block.
  */
 export function splitBlock(doc, id, offset = null) {
@@ -193,7 +193,7 @@ export function splitBlock(doc, id, offset = null) {
 
 /**
  * Backspace at the start of a block: append its text to the previous sibling.
- * Returns null when there is no previous sibling — the caller then tries
+ * Returns null when there is no previous sibling, the caller then tries
  * dedentBlock instead. Divider blocks have no text so they are not mergeable.
  */
 export function mergeWithPrevious(doc, id) {

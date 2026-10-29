@@ -1,5 +1,5 @@
 /**
- * Notewise — demo application.
+ * Notewise, demo application.
  *
  * Everything structural lives in ../src: the block tree, the Markdown codec,
  * the undo stack, statistics and persistence. This file owns the DOM: render
@@ -73,7 +73,7 @@ const SLASH_COMMANDS = [
   { id: "quote", label: "Quote", hint: "Standfirst or citation", icon: "❝", keywords: "quote blockquote citation" },
   { id: "code", label: "Code block", hint: "Monospace block", icon: "</>", keywords: "code pre monospace fence" },
   { id: "callout", label: "Callout", hint: "Highlighted note", icon: "!", keywords: "callout note highlight info" },
-  { id: "divider", label: "Divider", hint: "Horizontal rule", icon: "—", keywords: "divider rule separator hr" },
+  { id: "divider", label: "Divider", hint: "Horizontal rule", icon: ", ", keywords: "divider rule separator hr" },
   { id: "duplicate", label: "Duplicate block", hint: "Copy this block below", icon: "⧉", keywords: "duplicate copy clone" },
   { id: "delete", label: "Delete block", hint: "Remove this block", icon: "⌫", keywords: "delete remove bin trash" },
 ];
@@ -383,7 +383,7 @@ function updateStats() {
   dom.blockCount.textContent = plural(stats.blocks, "block");
   if (page) {
     dom.pageMeta.textContent = `Edited ${A.fmt.relative(page.updatedAt)}`;
-    document.title = `${displayTitle(page)} — Notewise`;
+    document.title = `${displayTitle(page)}, Notewise`;
   }
 }
 
@@ -406,7 +406,7 @@ function updateStorageNote() {
   if (!dom.storageNote) return;
   dom.storageNote.classList.toggle("is-warn", storageBlocked);
   dom.storageLabel.textContent = storageBlocked
-    ? "Storage blocked — session only"
+    ? "Storage blocked, session only"
     : "Saved in this browser";
 }
 
@@ -906,7 +906,7 @@ async function copyMarkdown() {
     }
     dom.mdOutput.setSelectionRange(0, 0);
   }
-  toast(copied ? "Markdown copied" : "Could not copy — select the text instead", copied ? "success" : "error");
+  toast(copied ? "Markdown copied" : "Could not copy, select the text instead", copied ? "success" : "error");
 }
 
 function downloadMarkdown() {
@@ -1192,7 +1192,7 @@ function bindEvents() {
     page.updatedAt = Date.now();
     page.doc = state.doc;
     dom.crumb.textContent = displayTitle(page);
-    document.title = `${displayTitle(page)} — Notewise`;
+    document.title = `${displayTitle(page)}, Notewise`;
     renderPageList();
     scheduleSave();
     if (state.panel) refreshMarkdownPanel();
